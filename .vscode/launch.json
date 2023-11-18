@@ -1,0 +1,46 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "bhashaverse",
+            "request": "launch",
+            "type": "dart",
+            "args": [
+                "--dart-define",
+                "userID=6793fb542ac5404baef7f0bb14b5f5f7",
+                "--dart-define",
+                "ulcaApiKey=5921483e8b-6f02-49d7-a99b-a10c45f99da1",
+                "--dart-define",
+                "authorization=OVcPu8d3wZR8WObV9YriRKCh8_NMCeHu1E7Vv090Hzo0zCKJt2fOgMKOEh_PY9qc",
+            ]
+        },
+        {
+            "name": "bhashaverse (profile mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile",
+            "args": [
+                "--dart-define",
+                "userID=6793fb542ac5404baef7f0bb14b5f5f7",
+                "--dart-define",
+                "ulcaApiKey=5921483e8b-6f02-49d7-a99b-a10c45f99da1",
+                "--dart-define",
+                "authorization=OVcPu8d3wZR8WObV9YriRKCh8_NMCeHu1E7Vv090Hzo0zCKJt2fOgMKOEh_PY9qc",
+            ]
+        },
+        {
+            "name": "bhashaverse (release mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release",
+            "args": [
+                "--dart-define",
+                "userID=6793fb542ac5404baef7f0bb14b5f5f7",
+                "--dart-define",
+                "ulcaApiKey=5921483e8b-6f02-49d7-a99b-a10c45f99da1",
+                "--dart-define",
+                "authorization=OVcPu8d3wZR8WObV9YriRKCh8_NMCeHu1E7Vv090Hzo0zCKJt2fOgMKOEh_PY9qc",
+            ]
+        }
+    ]
+}

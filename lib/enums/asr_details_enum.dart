@@ -1,0 +1,4 @@
+enum ASRModelDetails {
+  modelId,
+  streamingCallbackURL,
+}
