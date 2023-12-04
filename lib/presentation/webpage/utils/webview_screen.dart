@@ -12,10 +12,12 @@ class WebViewScreen extends StatefulWidget {
 
 class _WebViewScreenState extends State<WebViewScreen> {
   late final WebViewController _webViewController;
-  String initialUrl = Get.arguments;
+  Map<String, dynamic> args = Get.arguments;
+  late String initialUrl = args['url'];
+  late String language = args['language'];
   bool isLoading = true;
 
-  String script = """
+  late String script = """
     
   const htmlStringToDOM = (html) => {
   const parser = new DOMParser();
@@ -215,29 +217,43 @@ class BhashiniTranslator {
 const translator = new BhashiniTranslator('241a2dd58f-4ca2-4239-b6ce-ec64434c32e2', '0fabeaae7e3d4a4684e36e35f3f9b667');
 
 async function main () {
-  translator.translateDOM(document.body, "en", "hi", 22);
+  await translator.translateDOM(document.body, "en", "$language", 22);
 }
 
-main();
+main().then(result => {
+  finished.postMessage("finished");
+});
 
    """;
 
   @override
   void initState() {
-    print(script);
     super.initState();
     isLoading = true;
     _webViewController = WebViewController()
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..addJavaScriptChannel("finished",
+          onMessageReceived: (JavaScriptMessage message) {
+        setState(() {
+          isLoading = false;
+        });
+      })
       ..setUserAgent(
           'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36')
       ..setNavigationDelegate(NavigationDelegate(
           onNavigationRequest: (NavigationRequest request) async {
         return NavigationDecision.navigate;
       }, onPageFinished: (String url) async {
-        bool result = await executeJS();
+        await executeJS();
+        // if (result) {
+        //   await Future.delayed(const Duration(seconds: 15));
+        //   setState(() {
+        //     isLoading = false;
+        //   });
+        // }
+      }, onPageStarted: (String url) {
         setState(() {
-          isLoading = !result;
+          isLoading = true;
         });
       }))
       ..setBackgroundColor(const Color(0xFFFFFFFF))

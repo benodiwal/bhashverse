@@ -22,6 +22,7 @@ class _WebpageScreenState extends State<WebpageScreen> {
   final FocusNode _urlFocusNode = FocusNode();
   late bool isLoading;
   bool isWebPageVisible = false;
+  String selectedLanguage = "en";
 
   @override
   void initState() {
@@ -45,7 +46,7 @@ class _WebpageScreenState extends State<WebpageScreen> {
                     height: 16.h,
                   ),
                   CommonAppBar(
-                    title: link.tr,
+                    title: browse.tr,
                     onBackPress: () => Get.back(),
                   ),
                   SizedBox(
@@ -68,11 +69,95 @@ class _WebpageScreenState extends State<WebpageScreen> {
                   SizedBox(
                     height: 8.h,
                   ),
-                  ElevatedButton(
-                      onPressed: _pasteFromClipboard,
-                      child: const Text("Paste")),
+                  // ElevatedButton(
+                  //     onPressed: _pasteFromClipboard,
+                  //     child: const Text("Paste")),
+                  // SizedBox(
+                  //   height: 14.h,
+                  // ),
+                  Text(
+                    "Select a language in which you want to translate the WebPage: ".tr,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      fontSize: 13,
+                      color: Colors.white,
+                    ),
+                  ),
                   SizedBox(
-                    height: 8.h,
+                    height: 2.h,
+                  ),
+                  Container(
+                    padding: const EdgeInsets.all(3),
+                    decoration: BoxDecoration(
+                      color: context.appTheme.backgroundColor,
+                      border: Border.all(color: Colors.white),
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                    child: DropdownButton<String>(
+                      value: selectedLanguage,
+                      style: const TextStyle(color: Colors.white, fontSize: 18),
+                      underline: Container(
+                        height: 0,
+                        color: Colors.transparent,
+                      ),
+                      items: const [
+                        DropdownMenuItem(
+                          value: 'en',
+                          child: Text('English'),
+                        ),
+                        DropdownMenuItem(
+                          value: 'hi',
+                          child: Text('Hindi'),
+                        ),
+                        DropdownMenuItem(
+                          value: 'ta',
+                          child: Text('Tamil'),
+                        ),
+                        DropdownMenuItem(
+                          value: 'te',
+                          child: Text('Telugu'),
+                        ),
+                        DropdownMenuItem(
+                          value: 'ml',
+                          child: Text('Malayalam'),
+                        ),
+                        DropdownMenuItem(
+                          value: 'mr',
+                          child: Text('Marathi'),
+                        ),
+                        DropdownMenuItem(
+                          value: 'bn',
+                          child: Text('Bengali'),
+                        ),
+                        DropdownMenuItem(
+                          value: 'as',
+                          child: Text('Assamese'),
+                        ),
+                        DropdownMenuItem(
+                          value: 'gu',
+                          child: Text('Gujarati'),
+                        ),
+                        DropdownMenuItem(
+                          value: 'kn',
+                          child: Text('Kannada'),
+                        ),
+                        DropdownMenuItem(
+                          value: 'or',
+                          child: Text('Odia'),
+                        ),
+                        DropdownMenuItem(
+                          value: 'pa',
+                          child: Text('Punjabi'),
+                        ),
+                      ],
+                      onChanged: (String? value) {
+                        setState(() {
+                          selectedLanguage = value!;
+                        });
+                      }),
+                  ),
+                  SizedBox(
+                    height: 20.h,
                   ),
                   ElevatedButton(
                       onPressed: _generateWebPage,
@@ -124,18 +209,23 @@ class _WebpageScreenState extends State<WebpageScreen> {
     );
   }
 
-  void _pasteFromClipboard() async {
-    ClipboardData? clipboardData =
-        await Clipboard.getData(Clipboard.kTextPlain);
-    if (clipboardData != null) {
-      setState(() {
-        _textController.urlController.text = clipboardData.text ?? '';
-      });
-    }
-  }
+  // void _pasteFromClipboard() async {
+  //   ClipboardData? clipboardData =
+  //       await Clipboard.getData(Clipboard.kTextPlain);
+  //   if (clipboardData != null) {
+  //     setState(() {
+  //       _textController.urlController.text = clipboardData.text ?? '';
+  //     });
+  //   }
+  // }
 
   void _generateWebPage() async {
     String url = _textController.urlController.text;
-    if (url.isNotEmpty) Get.toNamed(AppRoutes.webViewRoute, arguments: url);
+    if (url.isNotEmpty) {
+      Get.toNamed(AppRoutes.webViewRoute, arguments: {
+        'url': url,
+        'language': selectedLanguage,
+      });
+    }
   }
 }

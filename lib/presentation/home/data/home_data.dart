@@ -15,7 +15,7 @@ class HomeData {
         isDisabled: false),
     HomeMenuModel(
         name: voice.tr, imageWidget: Image.asset(imgMic), isDisabled: false),
-    HomeMenuModel(name: link.tr, imageWidget: Image.asset(linkImage), isDisabled: false),
+    HomeMenuModel(name: browse.tr, imageWidget: Image.asset(linkImage), isDisabled: false),
     // HomeMenuModel(name: video.tr, preCachedImage: Image.asset(imgVideo), isDisabled: true),
     // HomeMenuModel(
     //     name: documents.tr, preCachedImage: Image.asset(imgDocuments), isDisabled: true),
