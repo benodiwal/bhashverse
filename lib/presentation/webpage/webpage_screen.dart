@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:bhashverse/common/widgets/common_app_bar.dart';
 import 'package:bhashverse/localization/localization_keys.dart';
 import 'package:bhashverse/presentation/webpage/controller/webpage_controller.dart';
@@ -11,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart';
 
 class WebpageScreen extends StatefulWidget {
   const WebpageScreen({super.key});
@@ -23,11 +20,13 @@ class WebpageScreen extends StatefulWidget {
 class _WebpageScreenState extends State<WebpageScreen> {
   late WebpageController _textController;
   final FocusNode _urlFocusNode = FocusNode();
+  late bool isLoading;
   bool isWebPageVisible = false;
 
   @override
   void initState() {
     _textController = Get.find();
+    isLoading = false;
     super.initState();
   }
 
@@ -78,6 +77,24 @@ class _WebpageScreenState extends State<WebpageScreen> {
                   ElevatedButton(
                       onPressed: _generateWebPage,
                       child: const Text("Generate Web Page")),
+                  SizedBox(
+                    height: 12.h,
+                  ),
+                  if (isLoading)
+                    const Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  SizedBox(
+                    height: 10.h,
+                  ),
+                  if (isLoading)
+                    const Text(
+                      "Generating web page",
+                      style: TextStyle(
+                        fontSize: 14.0,
+                        color: Colors.white,
+                      ),
+                    )
                 ],
               ),
             ),
@@ -119,28 +136,6 @@ class _WebpageScreenState extends State<WebpageScreen> {
 
   void _generateWebPage() async {
     String url = _textController.urlController.text;
-    if (url.isNotEmpty) {
-      String result = await getHtmlString();
-      Get.toNamed(AppRoutes.webViewRoute, arguments: result);
-    }
-  }
-
-  Future<String> getHtmlString() async {
-    const String serverUrl = 'http://localhost:3000/translate';
-    try {
-      final response = await post(Uri.parse(serverUrl),
-          headers: {'Content-Type': 'application/json'},
-          body: jsonEncode({
-            'url': 'https://medium.com/stackademic/which-is-better-rust-or-go-in-2023-136aa137dc3f'
-          }));
-      if (response.statusCode == 200) {
-        return response.body;
-      } else {
-        print("Not able to fetch");
-      }
-    } catch (e) {
-      print(e);
-    }
-    return "";
+    if (url.isNotEmpty) Get.toNamed(AppRoutes.webViewRoute, arguments: url);
   }
 }
