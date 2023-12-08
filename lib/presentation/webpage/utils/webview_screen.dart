@@ -277,14 +277,14 @@ main().then(result => {
         backgroundColor: context.appTheme.backgroundColor,
         title: Text(
           initialUrl,
-          style: const TextStyle(fontSize: 16, color: Colors.white),
+          style: const TextStyle(fontSize: 16, color: Colors.grey),
         ),
         actions: [
           isLoading
               ? Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: CircularProgressIndicator(
-                    valueColor: const AlwaysStoppedAnimation(Colors.white),
+                    valueColor: const AlwaysStoppedAnimation(Colors.grey),
                     backgroundColor: context.appTheme.backgroundColor,
                   ),
                 )
@@ -304,14 +304,48 @@ main().then(result => {
                 ),
         ],
       ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: WebViewWidget(controller: _webViewController),
+      body: Stack(
+        children: [
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: WebViewWidget(controller: _webViewController),
         ),
       ),
-    );
-  }
+          Positioned(
+            bottom: 10,
+            left: 10,
+          child: Align(
+            alignment: Alignment.bottomLeft,
+            child: Container(
+              height: 45.0,
+              width: 100.0,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(4)
+                ),
+                padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 5.0),
+                child: Column(
+                  children: [
+                    const Text(
+                      "Developed by",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 12.0,
+                        ),
+                        ),
+                        Image.asset(
+                              'assets/images/scaler.png',
+                            )
+                          ],
+                        ),
+                      )
+                    )
+                  ),
+      ],
+    ) 
+  );
+}
 
   // Future<String> fetchHTML(String url) async {
   //   //http.Response content = await http.get(Uri.parse(url));

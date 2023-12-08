@@ -6,7 +6,6 @@ import 'package:bhashverse/utils/constants/app_constants.dart';
 import 'package:bhashverse/utils/theme/app_text_style.dart';
 import 'package:bhashverse/utils/theme/app_theme_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
@@ -76,30 +75,31 @@ class _WebpageScreenState extends State<WebpageScreen> {
                   //   height: 14.h,
                   // ),
                   Text(
-                    "Select a language in which you want to translate the WebPage: ".tr,
+                    "Translate to:".tr,
                     textAlign: TextAlign.center,
                     style: const TextStyle(
                       fontSize: 13,
-                      color: Colors.white,
+                      color: Colors.grey,
                     ),
                   ),
                   SizedBox(
-                    height: 2.h,
+                    height: 4.h,
                   ),
                   Container(
-                    padding: const EdgeInsets.all(3),
+                    padding: const EdgeInsets.only(left: 16, right: 4, top: 1, bottom: 1),
                     decoration: BoxDecoration(
                       color: context.appTheme.backgroundColor,
-                      border: Border.all(color: Colors.white),
+                      border: Border.all(color: Colors.grey),
                       borderRadius: BorderRadius.circular(8.0),
                     ),
                     child: DropdownButton<String>(
                       value: selectedLanguage,
-                      style: const TextStyle(color: Colors.white, fontSize: 18),
+                      style: const TextStyle(color: Colors.grey, fontSize: 18),
                       underline: Container(
                         height: 0,
                         color: Colors.transparent,
                       ),
+                      iconSize: 36,
                       items: const [
                         DropdownMenuItem(
                           value: 'en',
@@ -179,7 +179,38 @@ class _WebpageScreenState extends State<WebpageScreen> {
                         fontSize: 14.0,
                         color: Colors.white,
                       ),
+                    ),
+                    Expanded(
+                      child: Align(
+                        alignment: Alignment.bottomLeft,
+                        child: Container(
+                        height: 45.0,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(4)
+                        ),
+                        padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 5.0),
+                        child: Column(
+                          children: [
+                            const Text(
+                              "Developed by",
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 12.0,
+                              ),
+                            ),
+                            Image.asset(
+                              'assets/images/scaler.png',
+                              fit: BoxFit.contain,
+                            )
+                          ],
+                        ),
+                      )
                     )
+                  ),
+                  SizedBox(
+                    height: 17.h,
+                  )
                 ],
               ),
             ),
