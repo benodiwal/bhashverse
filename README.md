@@ -23,7 +23,7 @@ name: bhashaverse
 
 * Dependencies:
 ```yaml
-  cupertino_icons: ^1.0.2
+ cupertino_icons: ^1.0.2
   get: ^4.6.5
   dio: ^4.0.6
   provider: ^6.0.5
@@ -38,7 +38,9 @@ name: bhashaverse
   flutter_svg: ^1.1.6
   google_fonts: ^4.0.4
   avatar_glow: ^2.0.2
+  http: ^1.1.0
   lottie: ^2.1.0
+  webview_flutter: ^4.4.2
   share_plus: ^6.3.0
   audio_waveforms: ^1.0.0
   socket_io_client: ^2.0.1
@@ -49,8 +51,11 @@ name: bhashaverse
   custom_rating_bar: ^2.0.5
   flutter_screenutil: ^5.8.4
   sound_stream:
-    git:
+     git:
       url: https://github.com/JHM69/flutter-sound-stream.git
+  html: ^0.15.4
+  uno: ^1.1.9
+  rename_app: ^1.3.1
 ```
 
 * Dev Dependencies:
