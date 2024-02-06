@@ -48,18 +48,21 @@ class LanguageSelectionWidget extends StatelessWidget {
                 child: Text(
                   title,
                   style: light16(context).copyWith(
+                    fontSize: 18.0,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
               ),
-            SizedBox(height: 4.w),
+            SizedBox(height: 1.w),
             if (subTitle.isNotEmpty)
               FittedBox(
                 fit: BoxFit.fitWidth,
                 child: Text(
                   subTitle,
                   style: light16(context)
-                      .copyWith(color: context.appTheme.secondaryTextColor),
+                      .copyWith(
+                        fontSize: 14.0,
+                        color: context.appTheme.secondaryTextColor),
                 ),
               ),
           ],

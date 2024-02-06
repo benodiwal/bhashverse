@@ -158,6 +158,7 @@ class FeedbackController extends GetxController {
         isLoading.value = false;
       }),
       failure: (error) {
+        print(error);
         showDefaultSnackbar(message: somethingWentWrong.tr);
         isLoading.value = false;
       },

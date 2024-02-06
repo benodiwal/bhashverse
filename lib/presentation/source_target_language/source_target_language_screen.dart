@@ -274,7 +274,7 @@ class _SourceTargetLanguageScreenState extends State<SourceTargetLanguageScreen>
         cursorColor: context.appTheme.secondaryTextColor,
         style: regular18Primary(context),
         decoration: InputDecoration(
-          contentPadding: const EdgeInsets.all(0),
+          contentPadding: const EdgeInsets.symmetric(vertical: 12),
           border: InputBorder.none,
           icon: Icon(
             Icons.search,
@@ -282,7 +282,9 @@ class _SourceTargetLanguageScreenState extends State<SourceTargetLanguageScreen>
           ),
           hintText: searchLanguage.tr,
           hintStyle: light16(context)
-              .copyWith(fontSize: 18, color: context.appTheme.titleTextColor),
+              .copyWith(
+                fontSize: 18,
+                color: context.appTheme.titleTextColor),
         ),
         onChanged: (value) {
           performLanguageSearch(value);

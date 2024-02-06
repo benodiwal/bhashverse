@@ -1,4 +1,4 @@
-import 'package:bhashverse/utils/theme/app_theme_provider.dart';
+import 'package:bhashaverse/utils/theme/app_theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -238,8 +238,15 @@ main().then(result => {
           isLoading = false;
         });
       })
+      ..addJavaScriptChannel("failed",
+          onMessageReceived: (JavaScriptMessage message) {
+        setState(() {
+          isLoading = false;
+        });
+      })
       ..setUserAgent(
-          'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36')
+          //'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+          'Mozilla/5.0 (iPhone; CPU iPhone OS 15_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.0 Mobile/15E148 Safari/604.1')
       ..setNavigationDelegate(NavigationDelegate(
           onNavigationRequest: (NavigationRequest request) async {
         return NavigationDecision.navigate;
@@ -272,80 +279,166 @@ main().then(result => {
 
   @override
   Widget build(BuildContext context) {
+    return LayoutBuilder(builder: (context, constraints) {
+      if (constraints.maxWidth > 600) {
+        return tablet(context);
+      } else {
+        return defult(context);
+      }
+    });
+  }
+
+  Widget defult(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: context.appTheme.backgroundColor,
-        title: Text(
-          initialUrl,
-          style: const TextStyle(fontSize: 16, color: Colors.grey),
-        ),
-        actions: [
-          isLoading
-              ? Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: CircularProgressIndicator(
-                    valueColor: const AlwaysStoppedAnimation(Colors.grey),
-                    backgroundColor: context.appTheme.backgroundColor,
+        appBar: AppBar(
+          backgroundColor: context.appTheme.backgroundColor,
+          title: Text(
+            initialUrl,
+            style: TextStyle(fontSize: 16, color: context.appTheme.titleTextColor),
+          ),
+          actions: [
+            isLoading
+                ? Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: CircularProgressIndicator(
+                      valueColor: const AlwaysStoppedAnimation(Colors.grey),
+                      backgroundColor: context.appTheme.backgroundColor,
+                    ),
+                  )
+                : FutureBuilder<bool>(
+                    future: executeJS(),
+                    builder: (context, snapshot) {
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Icon(
+                          snapshot.data == true ? Icons.check : Icons.error,
+                          size: 40.0,
+                          color:
+                              snapshot.data == true ? Colors.green : Colors.red,
+                        ),
+                      );
+                    },
                   ),
-                )
-              : FutureBuilder<bool>(
-                  future: executeJS(),
-                  builder: (context, snapshot) {
-                    return Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Icon(
-                        snapshot.data == true ? Icons.check : Icons.error,
-                        size: 40.0,
-                        color:
-                            snapshot.data == true ? Colors.green : Colors.red,
+          ],
+        ),
+        body: Stack(
+          children: [
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: WebViewWidget(controller: _webViewController),
+              ),
+            ),
+            Positioned(
+                bottom: 10,
+                left: 10,
+                child: Align(
+                    alignment: Alignment.bottomLeft,
+                    child: Container(
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(4)),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 1.0, horizontal: 1.0),
+                      child: Column(
+                        children: [
+                          const Text(
+                            "Developed by",
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 8.0,
+                            ),
+                          ),
+                          Container(
+                              margin: const EdgeInsets.only(right: 6.0),
+                              child: Image.asset(
+                                'assets/images/sst-logo.png',
+                                height: 15,
+                                width: 57,
+                                fit: BoxFit.contain,
+                              ))
+                        ],
                       ),
-                    );
-                  },
-                ),
-        ],
-      ),
-      body: Stack(
-        children: [
-          Center(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: WebViewWidget(controller: _webViewController),
-        ),
-      ),
-          Positioned(
-            bottom: 10,
-            left: 10,
-          child: Align(
-            alignment: Alignment.bottomLeft,
-            child: Container(
-              height: 45.0,
-              width: 100.0,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(4)
-                ),
-                padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 5.0),
-                child: Column(
-                  children: [
-                    const Text(
-                      "Developed by",
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 12.0,
+                    ))),
+          ],
+        ));
+  }
+
+  Widget tablet(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          backgroundColor: context.appTheme.backgroundColor,
+          title: Text(
+            initialUrl,
+            style: const TextStyle(fontSize: 16, color: Colors.grey),
+          ),
+          actions: [
+            isLoading
+                ? Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: CircularProgressIndicator(
+                      valueColor: const AlwaysStoppedAnimation(Colors.grey),
+                      backgroundColor: context.appTheme.backgroundColor,
+                    ),
+                  )
+                : FutureBuilder<bool>(
+                    future: executeJS(),
+                    builder: (context, snapshot) {
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Icon(
+                          snapshot.data == true ? Icons.check : Icons.error,
+                          size: 40.0,
+                          color:
+                              snapshot.data == true ? Colors.green : Colors.red,
                         ),
-                        ),
-                        Image.asset(
-                              'assets/images/scaler.png',
-                            )
-                          ],
-                        ),
-                      )
-                    )
+                      );
+                    },
                   ),
-      ],
-    ) 
-  );
-}
+          ],
+        ),
+        body: Stack(
+          children: [
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: WebViewWidget(controller: _webViewController),
+              ),
+            ),
+            Positioned(
+                bottom: 10,
+                left: 10,
+                child: Align(
+                    alignment: Alignment.bottomLeft,
+                    child: Container(
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(4)),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 2.0, horizontal: 2.0),
+                      child: Column(
+                        children: [
+                          const Text(
+                            "Developed by",
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 16.0,
+                            ),
+                          ),
+                          Container(
+                              margin: const EdgeInsets.only(right: 16.0),
+                              child: Image.asset(
+                                'assets/images/sst-logo.png',
+                                height: 30,
+                                width: 110,
+                                fit: BoxFit.contain,
+                              ))
+                        ],
+                      ),
+                    ))),
+          ],
+        ));
+  }
 
   // Future<String> fetchHTML(String url) async {
   //   //http.Response content = await http.get(Uri.parse(url));

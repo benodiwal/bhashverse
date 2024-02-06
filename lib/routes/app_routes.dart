@@ -1,6 +1,6 @@
-import 'package:bhashverse/presentation/webpage/binding/webpage_binding.dart';
-import 'package:bhashverse/presentation/webpage/utils/webview_screen.dart';
-import 'package:bhashverse/presentation/webpage/webpage_screen.dart';
+import 'package:bhashaverse/presentation/webpage/binding/webpage_binding.dart';
+import 'package:bhashaverse/presentation/webpage/utils/webview_screen.dart';
+import 'package:bhashaverse/presentation/webpage/webpage_screen.dart';
 import 'package:get/get.dart';
 
 import '../presentation/conversation/binding/conversation_binding.dart';

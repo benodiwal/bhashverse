@@ -481,7 +481,7 @@ packages:
     source: hosted
     version: "0.6.7"
   json_annotation:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: json_annotation
       sha256: b10a7b2ff83d83c777edba3c6a0f97045ddadd56c944e1a23a3fdf43a1bf4467
@@ -552,14 +552,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.4"
-  mime_type:
-    dependency: transitive
-    description:
-      name: mime_type
-      sha256: "2ad6e67d3d2de9ac0f8ef5352d998fd103cb21351ae8c02fb0c78b079b37d275"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.0"
   nested:
     dependency: transitive
     description:
@@ -990,22 +982,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.3.2"
-  universal_io:
-    dependency: transitive
-    description:
-      name: universal_io
-      sha256: "1722b2dcc462b4b2f3ee7d188dad008b6eb4c40bbd03a3de451d82c78bba9aad"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.2.2"
-  uno:
-    dependency: "direct main"
-    description:
-      name: uno
-      sha256: dd00f8f51907139132addef07b97b5a2b0d19788f116995ec86dca64e57eae8e
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.1.9"
   url_launcher_linux:
     dependency: transitive
     description:

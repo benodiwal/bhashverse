@@ -269,7 +269,6 @@ class _TextTranslateScreenState extends State<TextTranslateScreen>
           focusNode: _targetLangFocusNode,
           backgroundColor: context.appTheme.highlightedTextFieldColor,
           borderColor: context.appTheme.textFieldBorderColor,
-
           isRecordedAudio: false,
           topBorderRadius: textFieldRadius,
           bottomBorderRadius: 16,
